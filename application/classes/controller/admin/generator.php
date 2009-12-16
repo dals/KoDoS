@@ -1,5 +1,5 @@
 <?php
-class Controller_Admin_Generator extends Base_Backend{
+class Controller_Admin_Generator /*extends Base_Backend*/extends Controller_Smarty {
 
     public function action_index() {
         echo HTML::anchor('admin/generator/export', 'Generate models from DB');
@@ -56,7 +56,9 @@ class Controller_Admin_Generator extends Base_Backend{
      */
     public function action_import() {
         try {
+            //echo Doctrine::generateSqlFromModels(APPPATH.'models');
             echo Doctrine::generateSqlFromModels(APPPATH.'models');
+            //Doctrine_Core::createTablesFromModels(APPPATH.'models');
         }
         catch (Exception $exc) {
             echo $exc->getTraceAsString();

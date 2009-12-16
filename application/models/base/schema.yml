@@ -160,10 +160,6 @@ Users:
       local: id
       foreign: user_id
       type: many
-    Worktimes:
-      local: id
-      foreign: user_id
-      type: many
 Users2Roles:
   connection: default
   tableName: Users2Roles
@@ -194,65 +190,6 @@ Users2Roles:
       local: role_id
       foreign: id
       type: one
-    Users:
-      local: user_id
-      foreign: id
-      type: one
-Worktimes:
-  connection: default
-  tableName: Worktimes
-  columns:
-    id:
-      type: integer(4)
-      fixed: false
-      unsigned: false
-      primary: true
-      autoincrement: true
-    work_date:
-      type: date(25)
-      fixed: false
-      unsigned: false
-      primary: false
-      default: '0000-00-00'
-      notnull: true
-      autoincrement: false
-    time_start:
-      type: time(25)
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: false
-      autoincrement: false
-    time_stop:
-      type: time(25)
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: false
-      autoincrement: false
-    user_id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: false
-      notnull: true
-      autoincrement: false
-    created_at:
-      type: timestamp(25)
-      fixed: false
-      unsigned: false
-      primary: false
-      default: '0000-00-00 00:00:00'
-      notnull: true
-      autoincrement: false
-    updated_at:
-      type: timestamp(25)
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: true
-      autoincrement: false
-  relations:
     Users:
       local: user_id
       foreign: id

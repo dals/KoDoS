@@ -1,5 +1,5 @@
 <?php
-include_once 'base/BaseUsers2Roles.php';
+include_once 'base/Users2Roles.php';
 /**
  * Users2Roles
  * 
@@ -10,7 +10,7 @@ include_once 'base/BaseUsers2Roles.php';
  * @author     ##NAME## <##EMAIL##>
  * @version    SVN: $Id: Builder.php 6820 2009-11-30 17:27:49Z jwage $
  */
-class Users2Roles extends BaseUsers2Roles
+class Users2Roles extends Base_Users2Roles
 {
 
 }

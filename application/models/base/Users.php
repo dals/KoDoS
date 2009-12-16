@@ -108,9 +108,5 @@ class Base_Users extends Doctrine_Record
         $this->hasMany('Users2Roles', array(
              'local' => 'id',
              'foreign' => 'user_id'));
-
-        $this->hasMany('Worktimes', array(
-             'local' => 'id',
-             'foreign' => 'user_id'));
     }
 }

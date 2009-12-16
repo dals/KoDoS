@@ -18,7 +18,7 @@ Doctrine_Manager::getInstance()->bindComponent('Users2Roles', 'default');
  * @author     ##NAME## <##EMAIL##>
  * @version    SVN: $Id: Builder.php 6820 2009-11-30 17:27:49Z jwage $
  */
-class Users2Roles extends Doctrine_Record
+class Base_Users2Roles extends Doctrine_Record
 {
     public function setTableDefinition()
     {

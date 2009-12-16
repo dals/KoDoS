@@ -89,6 +89,7 @@ Kohana::$profiling = false;
 /**
  * Enable modules. Modules are referenced by a relative or absolute path.
  */
+try {
 Kohana::modules(array(
 	// 'auth'       => MODPATH.'auth',       // Basic authentication
 	// 'codebench'  => MODPATH.'codebench',  // Benchmarking tool
@@ -101,7 +102,13 @@ Kohana::modules(array(
         'doctrine'=>MODPATH.'doctrine',
         'smarty'  => MODPATH.'smarty',
 	));
-
+}
+catch (ErrorException $e) {
+    echo '<pre>';
+    print_r($e);
+    echo '</pre>';
+    die;
+}
 /**
  * Set the routes. Each route must have a minimum of a name, a URI and a set of
  * defaults for the URI.
@@ -166,9 +173,9 @@ echo $oRequest->send_headers()->response;
 /**
  * Auth check
  */
-$aAuthA1Config = Kohana::config('a1');
-if(!A1::instance()->logged_in()  && '/'.$oRequest->uri !== $aAuthA1Config['login_page']) {
-    Session::instance()->set('lastRequestedRoute', $oRequest->uri);
-    Helper_Response::redirect($aAuthA1Config['login_page']);
-}
+//$aAuthA1Config = Kohana::config('a1');
+//if(!A1::instance()->logged_in()  && '/'.$oRequest->uri !== $aAuthA1Config['login_page']) {
+//    Session::instance()->set('lastRequestedRoute', $oRequest->uri);
+//    Helper_Response::redirect($aAuthA1Config['login_page']);
+//}
 

@@ -6,7 +6,30 @@ require Kohana::find_file('vendors', 'doctrine/Doctrine');
 spl_autoload_register(array('Doctrine', 'autoload'));
 
 /* Read config data for connection */
-$db = Kohana::config('database')->doctrine;
+$db = Kohana::config('database');//->doctrine;
+
+try {
+    //check if
+    if(sizeof($db) == 0) {
+        throw new Kohana_Exception('DB doctrine config not found!');
+    }
+}
+catch (Kohana_Exception $e) {
+    //display custom message
+    echo $e->getMessage();
+    exit (0);
+}
+
+try {
+    if(!isset($db->doctrine)) {
+        throw new Kohana_Exception('DB "doctrine" section not found!');
+    }
+    $db = $db->doctrine;
+} catch (Kohana_Exception $exc) {
+    echo $exc->getMessage();
+    die;
+}
+
 
 $aConnection = $db['connection'];
 /* Call Manager instance */
@@ -38,3 +61,4 @@ $manager->setAttribute(Doctrine::ATTR_AUTOLOAD_TABLE_CLASSES, true);
  * Tell Doctrine that our models are placed in APPPATH.'models'
  */
 Doctrine::loadModels(APPPATH.'models');
+
