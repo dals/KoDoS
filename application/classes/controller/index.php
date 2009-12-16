@@ -3,7 +3,7 @@
 class Controller_Index extends Base_Frontend {
 
     public function action_index() {
-    
+        $o = Helper_Request::instance();
     }
 
 } // End Index

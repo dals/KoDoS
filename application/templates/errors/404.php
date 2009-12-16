@@ -13,7 +13,7 @@
     <body>
 
         <div id="site-wrapper">
-
+        <!--
             <div id="header">
 
                 <div id="top">
@@ -39,7 +39,7 @@
                     <div class="clearer">&nbsp;</div>
 
                 </div>
-            </div>
+            </div>-->
 
             <div class="main" id="main-two-columns">
                 <div style="border:1px solid red;padding:20px 20px;">
@@ -49,7 +49,7 @@
                 </div>
                 <div class="clearer">&nbsp;</div>
             </div>
-
+<!--
             <div id="footer">
 
                 <div class="left" id="footer-left">
@@ -73,7 +73,7 @@
                 <div class="clearer">&nbsp;</div>
 
             </div>
-
+-->
         </div>
 
     </body>

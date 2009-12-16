@@ -15,7 +15,7 @@ class Base_Backend extends Base_Application {
      * Is page required auth?
      * @var boolean Default: true
      */
-    public $bRequiredAuth = true;
+//    public $bRequiredAuth = true;
 
     /**
      * Executes before any controller's action
@@ -23,12 +23,12 @@ class Base_Backend extends Base_Application {
     public function before(){
         parent::before();
 
-       /**
-        * Template automatisation
-        */
-        $oRequest = Request::instance();
-        $sTplPath = $oRequest->directory.'/'.$oRequest->controller.'/'.$oRequest->action.'.tpl';
-        $this->template = $sTplPath;
+//       /**
+//        * Template automatisation
+//        */
+//        $oRequest = Request::instance();
+//        $sTplPath = $oRequest->directory.'/'.$oRequest->controller.'/'.$oRequest->action.'.tpl';
+//        $this->template = $sTplPath;
     }
 
     /**

@@ -1,5 +1,6 @@
 <?php
-class Controller_Admin_Generator extends Controller{
+class Controller_Admin_Generator extends Base_Backend{
+
     public function action_index() {
         echo HTML::anchor('admin/generator/export', 'Generate models from DB');
         echo '<br/>';
@@ -10,29 +11,38 @@ class Controller_Admin_Generator extends Controller{
 
     public function action_export() {
         $options = array(
-                 'generateBaseClasses'   =>  true,
-                 'baseClassesPrefix'     =>  'Base',
-                 'baseClassesDirectory'  =>  'base',
+                 'generateBaseClasses'   =>  false,
                  'baseClassName'         =>  'Doctrine_Record');
         try {
-            // Backup first
-            $sPath = $this->action_backup_existed();
-            $objectsBackup = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($sPath), RecursiveIteratorIterator::SELF_FIRST);
+            /**
+             * Backup first
+             */
+            $sBackupPath = $this->action_backup_existed();
+
+            $objectsBackup = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($sBackupPath), RecursiveIteratorIterator::SELF_FIRST);
             foreach($objectsBackup as $bname => $bobject){
                 chmod($bname, 0777);
             }
-            echo 'Backed up!', '<br/>';
+            echo 'Backed up!', '<br/><hr/>';
             
-            // Generate new
-            Doctrine_Core::generateModelsFromDb(APPPATH.'models', array(), $options);
-            Doctrine::generateYamlFromDb(APPPATH.'models/schema.yml');
-            echo 'Generated to '.APPPATH.'models', '<br/>';
+            /**
+             * Generate new Doctrine models
+             */
+            $sModelsPath =  APPPATH.'models/';
+            $sDoctrineGeneratedBase = 'base/';
+            $sGenerateDoctrinePath = $sModelsPath.$sDoctrineGeneratedBase;
+            
+            Doctrine_Core::generateModelsFromDb($sGenerateDoctrinePath, array(), $options);
+            Doctrine::generateYamlFromDb($sGenerateDoctrinePath.'/schema.yml');
+            
+            echo 'Generated to '.$sGenerateDoctrinePath, '<br/>';
             // Iterate and chmod
-            $objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(APPPATH.'models'), RecursiveIteratorIterator::SELF_FIRST);
-            foreach($objects as $name => $object){
+            $oFilesObjects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($sModelsPath), RecursiveIteratorIterator::SELF_FIRST);
+            foreach($oFilesObjects as $name => $object){
                 echo "$name<br/>";
                 chmod($name, 0777);
             }
+            
         }
         catch (Exception $exc) {
             echo $exc->getMessage();

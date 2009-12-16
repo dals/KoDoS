@@ -50,11 +50,6 @@ function auto_load($class) {
 spl_autoload_register(array('Kohana', 'auto_load'));
 spl_autoload_register('auto_load');
 
-
-
-
-
-
 /**
  * Enable the Kohana auto-loader for unserialization.
  *
@@ -90,6 +85,7 @@ Kohana::$log->attach(new Kohana_Log_File(APPPATH.'logs'));
  */
 Kohana::$config->attach(new Kohana_Config_File);
 
+Kohana::$profiling = false;
 /**
  * Enable modules. Modules are referenced by a relative or absolute path.
  */
@@ -101,6 +97,7 @@ Kohana::modules(array(
 	// 'orm'        => MODPATH.'orm',        // Object Relationship Mapping
 	// 'pagination' => MODPATH.'pagination', // Paging of results
 	// 'userguide'  => MODPATH.'userguide',  // User guide and API documentation
+        'a1'=> MODPATH.'a1',
         'doctrine'=>MODPATH.'doctrine',
         'smarty'  => MODPATH.'smarty',
 	));
@@ -109,13 +106,28 @@ Kohana::modules(array(
  * Set the routes. Each route must have a minimum of a name, a URI and a set of
  * defaults for the URI.
  */
+
+/**
+ * Route to nice calls to widgets
+ */
+Route::set('widget', '<controller>(/<action>(/<format>))', array('controller'=>'widget_\w+'))
+        ->defaults(array(
+            'controller' => 'widget_dummy',
+            'action'     => 'show',
+        ));
+
+/**
+ * Route to serve admin part
+ */
 Route::set('admin', 'admin(/<controller>(/<action>(/<id>)))')
         ->defaults(array(
                 'directory' => 'admin',
                 'controller' => 'index',
                 'action' => 'index',
         ));
-
+/**
+ * Route to serve public part
+ */
 Route::set('default', '(<controller>(/<action>(/<id>)))')
 	->defaults(array(
 		'controller' => 'index',
@@ -123,42 +135,40 @@ Route::set('default', '(<controller>(/<action>(/<id>)))')
 	));
 
 
-class MyException {
-    public static $status;
-    public static function exception_handler(Exception $e) {
-        // Start an output buffer
-        ob_start();
+/**
+* Execute the main request. A source of the URI can be passed, eg: $_SERVER['PATH_INFO'].
+* If no source is specified, the URI will be automatically detected.
+*/
+$oRequest = Request::instance();
 
-        if ($e instanceof ReflectionException) {
-            // Reflection will throw exceptions for missing classes or actions
-            $error = MyException::$status = 404;
-            header("HTTP/1.0 $error Not Found" , TRUE, $error);
+try {
+   $oRequest->execute();
+}
+catch (Kohana_Exception404 $e) {
+   $oRequest = Request::factory('error/404')->execute();
+}
+catch (Kohana_Exception403 $e) {
+   $oRequest = Request::factory('error/403')->execute();
+}
+catch (ReflectionException $e) {
+   $oRequest = Request::factory('error/404')->execute();
+}
+catch (Exception $e) {
+   if ( ! IN_PRODUCTION ) {
+       throw $e;
+   }
 
-        }
-        else {
-            // All other exceptions are PHP/server errors
-            $error = MyException::$status = 500;
-            header("HTTP/1.0 $error" , TRUE, $error);
-        }
-
-        Kohana::$log->add(Kohana::ERROR, Kohana::exception_text($e));
-        $message = "";
-        if(!IN_PRODUCTION) {
-            $message = $e->getMessage();//Kohana::exception_text($e);
-        }
-
-        include Kohana::find_file('templates', 'errors/'.$error, 'php');
-        echo ob_get_clean();
-        exit;
-    }
+   $oRequest = Request::factory('error/500')->execute();
 }
 
-set_exception_handler(array('MyException', 'exception_handler'));
+echo $oRequest->send_headers()->response;
+
 /**
- * Execute the main request. A source of the URI can be passed, eg: $_SERVER['PATH_INFO'].
- * If no source is specified, the URI will be automatically detected.
+ * Auth check
  */
-echo Request::instance()
-	->execute()
-	->send_headers()
-	->response;
+$aAuthA1Config = Kohana::config('a1');
+if(!A1::instance()->logged_in()  && '/'.$oRequest->uri !== $aAuthA1Config['login_page']) {
+    Session::instance()->set('lastRequestedRoute', $oRequest->uri);
+    Helper_Response::redirect($aAuthA1Config['login_page']);
+}
+
