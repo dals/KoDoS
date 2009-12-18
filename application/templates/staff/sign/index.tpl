@@ -1,4 +1,4 @@
-{extends template="public/main.tpl"}
+{extends template="staff/main.tpl"}
 
 {container name="splash"}a{/container}
 

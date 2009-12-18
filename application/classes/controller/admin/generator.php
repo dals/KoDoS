@@ -1,4 +1,9 @@
 <?php
+// Dummy checker
+if(!stristr($_SERVER['HTTP_REFERER'],$_SERVER['HTTP_HOST'])) {
+    die('No direct access!');
+}
+
 class Controller_Admin_Generator /*extends Base_Backend*/extends Controller_Smarty {
 
     public function action_index() {
@@ -28,7 +33,7 @@ class Controller_Admin_Generator /*extends Base_Backend*/extends Controller_Smar
             /**
              * Generate new Doctrine models
              */
-            $sModelsPath =  APPPATH.'models/';
+            $sModelsPath =  APPPATH.'models';
             $sDoctrineGeneratedBase = 'base/';
             $sGenerateDoctrinePath = $sModelsPath.$sDoctrineGeneratedBase;
             

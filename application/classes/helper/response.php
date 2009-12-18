@@ -21,7 +21,7 @@ class Helper_Response {
      *
      * @return  void
      */
-    public function __construct($_name = 'HttpResponse') {
+    public function __construct($_name = 'Response') {
         return $this;
     }
 

@@ -15,6 +15,14 @@ class Application {
     }
 
     function __get($sName) {
-        return new $sName();
+        switch ($sName) {
+            case $sName:
+                $sName = 'Helper_'.$sName;
+                return new $sName();
+                break;
+            case 'widget':
+            default:
+                break;
+        }
     }
 }

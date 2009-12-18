@@ -1,9 +1,12 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Index extends Base_Frontend {
+class Controller_Staff_Index extends Base_Frontend {
 
     public function action_index() {
-        $this->redirect('/staff');
+        $o = Helper_Request::instance();
+    }
+    public function action_time() {
+        $o = Helper_Request::instance();
     }
 
 } // End Index

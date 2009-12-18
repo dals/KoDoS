@@ -1,6 +1,6 @@
 <?php
 class Helper_Request{
-    	public static function instance($_name = 'HttpRequest')
+    	public static function instance($_name = 'Request')
 	{
 		static $_instances;
 
@@ -17,7 +17,7 @@ class Helper_Request{
 	 *
 	 * @return  void
 	 */
-	public function __construct($_name = 'HttpRequest'){
+	public function __construct($_name = 'Request'){
             return $this;
         }
 

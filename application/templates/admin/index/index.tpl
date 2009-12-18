@@ -1,4 +1,4 @@
-{extends template="admin/main.tpl"}
+{extends template="admin/main-1col.tpl"}
 
 {container name="css"}{/container}
 {container name="js"}{/container}

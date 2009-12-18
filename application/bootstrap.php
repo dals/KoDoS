@@ -133,6 +133,15 @@ Route::set('admin', 'admin(/<controller>(/<action>(/<id>)))')
                 'action' => 'index',
         ));
 /**
+ * Route to serve admin part
+ */
+Route::set('staff', 'staff(/<controller>(/<action>(/<id>)))')
+        ->defaults(array(
+                'directory'=>'staff',
+                'controller' => 'index',
+                'action' => 'index',
+        ));
+/**
  * Route to serve public part
  */
 Route::set('default', '(<controller>(/<action>(/<id>)))')
@@ -140,6 +149,11 @@ Route::set('default', '(<controller>(/<action>(/<id>)))')
 		'controller' => 'index',
 		'action'     => 'index',
 	));
+//Route::set('default', '(<controller>(/<action>(/<id>)))')
+//	->defaults(array(
+//		'controller' => 'index',
+//		'action'     => 'index',
+//	));
 
 
 /**

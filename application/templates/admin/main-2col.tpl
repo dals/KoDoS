@@ -17,7 +17,7 @@
     </head>
     <body>
         <div class="container_16">
-            <div class="grid_16">
+            <div class="grid_16" id="top-account">
                 {container name='top-myaccount'}
                 <ul class="nav main">
                     <li>
@@ -38,7 +38,7 @@
             <div class="grid_16">
                 {container name='branding'}
                 <h1 id="branding">
-                    <a href="./">Fluid 960 Grid System</a>
+                    <a href="/">Site.tld</a>
                 </h1>
                 {/container}
             </div>
@@ -48,16 +48,7 @@
             <!--Top navigation-->
             <div class="grid_16">
                 {container name='top-navigation'}
-                    <ul class="nav main">
-                        {if $aTopNavigation}
-                            {foreach from=$aTopNavigation item=oPage}
-                                <li>
-                                    <a href="{if $oPage->directory}/{$oPage->directory}{/if}/{$oPage->controller}">{$oPage->menu}</a>
-                                </li>
-                            {/foreach}
-                        {/if}
-
-                    </ul>
+                    {include file='admin/top-menu.tpl'}
                 {/container}
             </div>
             <div class="clear"></div>
@@ -66,7 +57,7 @@
             <!--Page title-->
             <div class="grid_16">
                 {container name='page-title'}
-                    <h2 id="page-heading">Templates for Rapid Interactive Prototyping</h2>
+                    <h2 id="page-heading">{$page->title}</h2>
                 {/container}
             </div>
             <div class="clear"></div>
@@ -75,8 +66,8 @@
             <!--//
               / Left navigation
             //-->
-            <div class="grid_3">
                 {container name='left'}
+                <div class="grid_3">
                 <div class="box menu">
                     <h2>
                         <a href="#" id="toggle-section-menu">Section Menu</a>
@@ -126,8 +117,9 @@
                         </ul>
                     </div>
                 </div>
+                </div>
                 {/container}
-            </div>
+           
             <!--//
               / Left navigation
             //-->
@@ -135,16 +127,16 @@
             <!--//
               Content
             //-->
-            <div class="grid_13">
                 {container name='content'}
-                <div class="box">
-                    <h2>Design Influences</h2>
-                    <div class="block">
-                        <p>The words "design influences" can be understood as both a plural noun and as subject and verb. The plural noun speaks of those who have come before us and paved the way. The verb speaks of the responsibility of design to lead the way. By understanding where we have come from, we have a better idea of where we are going and, perhaps, where we should be heading.</p>
+                <div class="grid_13">
+                    <div class="box">
+                        <h2>Design Influences</h2>
+                        <div class="block">
+                            <p>The words "design influences" can be understood as both a plural noun and as subject and verb. The plural noun speaks of those who have come before us and paved the way. The verb speaks of the responsibility of design to lead the way. By understanding where we have come from, we have a better idea of where we are going and, perhaps, where we should be heading.</p>
+                        </div>
                     </div>
                 </div>
                 {/container}
-            </div>
             <div class="clear"></div>
             <!--//
               / Content
@@ -156,10 +148,10 @@
             <div class="grid_16" id="site_info">
                 {container name='footer'}
                     <div class="box">
-                        <p>Fluid 960 Grid System, created by <a href="http://www.domain7.com/WhoWeAre/StephenBau.html">Stephen Bau</a>, based on the <a href="http://960.gs/">960 Grid System</a> by <a href="http://sonspring.com/journal/960-grid-system">Nathan Smith</a>. Released under the
+                        <p>&copy; 2009 &#151; <a href="/">Site.tld</a> <span style="margin-left: 60%;">Released under the
                             <a href="licenses/GPL_license.txt">GPL</a>/
                             <a href="licenses/MIT_license.txt">MIT</a>
-                            <a href="README.txt">Licenses</a>.</p>
+                            <a href="README.txt">Licenses</a>.</span></p>
                     </div>
                 {/container}
             </div>

@@ -42,10 +42,10 @@ class Pages extends Base_Pages {
         }
 
         if (!is_null($sController)) {
-            $q->andWhere('controller=?', trim($sAction));
+            $q->andWhere('controller=?', trim($sController));
         }
         if (!is_null($sDirectory)) {
-            $q->andWhere('directory=?', trim($sAction));
+            $q->andWhere('directory=?', trim($sDirectory));
         }
 
         return $q->execute()->getFirst();
@@ -60,5 +60,23 @@ class Pages extends Base_Pages {
         return $this->getTable()->findAll();
     }
 
+    /**
+     * function_name
+     */
+    function findByDirectory($sDirectory = 'all') {
+        if($sDirectory == 'all') {
+            return $this->loadAll();
+        } else {
+            $q = Doctrine_Query::create()
+                    ->select('p.*')
+                    ->from('Pages p');
+            if(is_null($sDirectory)) {
+                $q->where('p.directory = NULL');
+            } else {
+                $q->where('p.directory = ?', trim($sDirectory));
+            }
+            return $q->execute();
+        }
+    }
     
 }

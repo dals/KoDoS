@@ -1,0 +1,7 @@
+CREATE TABLE `Pages` (`id` INT AUTO_INCREMENT, `title` VARCHAR(32), `menu` VARCHAR(32), `directory` VARCHAR(64), `controller` VARCHAR(64), `action` VARCHAR(64), `role_allowed` varchar(254) DEFAULT 'admin', `user_allowed` VARCHAR(128), `published` TINYINT DEFAULT '1', `parent` INT, PRIMARY KEY(`id`)) ENGINE = INNODB;
+CREATE TABLE `Roles` (`id` TINYINT AUTO_INCREMENT, `name` VARCHAR(32), PRIMARY KEY(`id`)) ENGINE = INNODB;
+CREATE TABLE `Users` (`id` INT UNSIGNED AUTO_INCREMENT, `username` VARCHAR(128) NOT NULL, `password` CHAR(128) NOT NULL, `email` VARCHAR(254), `token` VARCHAR(254), `last_login` INT UNSIGNED, `logins` INT, `active` TINYINT DEFAULT '1', PRIMARY KEY(`id`)) ENGINE = INNODB;
+CREATE TABLE `Users2Roles` (`id` INT, `user_id` INT UNSIGNED, `role_id` TINYINT, INDEX `role_id_idx` (`role_id`), INDEX `user_id_idx` (`user_id`)) ENGINE = INNODB; ALTER TABLE `Users2Roles` ADD CONSTRAINT `Users2Roles_user_id_Users_id` FOREIGN KEY (`user_id`) REFERENCES `Users`(`id`);
+ALTER TABLE `Users2Roles` ADD CONSTRAINT `Users2Roles_role_id_Roles_id` FOREIGN KEY (`role_id`) REFERENCES `Roles`(`id`);
+INSERT INTO `Users`(`id`,`username`,`password`,`email`,`token`,`last_login`,`logins`,`active`)
+    VALUES ( NULL,'admin','6b75d14bddedf6528cdd5a9e9f6d37f37ed4776ab76f521b90',NULL,NULL,NULL,NULL,'1');

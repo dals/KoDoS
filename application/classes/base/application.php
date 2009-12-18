@@ -33,12 +33,12 @@ class Base_Application extends Controller_Smarty {
          * Page data
          */
         $oPage = new Pages();
-        $this->assign('page', $oPage->findByPath($oRequest->action, $oRequest->controller, null));
+        $this->assign('page', $oPage->findByPath(null, $oRequest->controller, $oRequest->directory));
 
         /**
          * Top navigation
          */
-        $this->assign('aTopNavigation', $oPage->loadAll());
+        $this->assign('aTopNavigation', $oPage->findByDirectory($oRequest->directory));
 
         /**
          * User data

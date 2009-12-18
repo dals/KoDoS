@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Sign extends Base_Frontend {
+class Controller_Staff_Sign extends Base_Frontend {
 
     public $bRequiredAuth = true;
 
